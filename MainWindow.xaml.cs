@@ -177,5 +177,9 @@ namespace LibraryManagementFE
                 }
             };
         }
+
+        private void DashboardView_Loaded(object sender, RoutedEventArgs e) {
+
+        }
     }
 }
