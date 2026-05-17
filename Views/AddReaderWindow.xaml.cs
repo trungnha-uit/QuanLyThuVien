@@ -25,6 +25,8 @@ namespace LibraryManagementFE.Views
             var dateOfBirth = DateOfBirthPicker.SelectedDate ?? _defaultDateOfBirth;
             var regDate = DateTime.Today;
 
+            var policy = Policies.LibraryPolicyStore.LoadOrCreate();
+
             if (string.IsNullOrWhiteSpace(name))
             {
                 ShowError("Vui lòng nhập họ tên độc giả.");
@@ -42,6 +44,12 @@ namespace LibraryManagementFE.Views
             if (dateOfBirth.Date >= DateTime.Today)
             {
                 ShowError("Ngày sinh phải nhỏ hơn ngày hiện tại.");
+                DateOfBirthPicker.Focus();
+                return;
+            }
+
+            if((DateTime.Today.Year - dateOfBirth.Year) < policy.MinAge) {
+                ShowError($"Độc giả phải có độ tuổi tối thiểu là {policy.MinAge} tuổi.");
                 DateOfBirthPicker.Focus();
                 return;
             }
